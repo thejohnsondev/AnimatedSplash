@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">AnimatedSplash</string>
+    <string name="app_name">App Name</string>
+    <string name="app_description">Some description</string>
+    <string name="get_started">Get Started</string>
 </resources>
