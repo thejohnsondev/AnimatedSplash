@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Scaffold
@@ -33,6 +34,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -134,6 +136,23 @@ private fun LogoSection(
     Box(
         modifier = modifier
     ) {
+        BlurContainer(
+            modifier = Modifier
+                .fillMaxSize(),
+            component = {
+                Image(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .scale(animatedBackgroundBlurScale.value)
+                        .graphicsLayer {
+                            translationY = animatedLogoYPosition.value
+                        },
+                    painter = painterResource(R.drawable.ic_app_logo),
+                    contentDescription = null
+                )
+            },
+            blur = 150f
+        )
         Image(modifier = Modifier
             .wrapContentSize()
             .scale(animatedLogoScale.value)
@@ -165,7 +184,7 @@ private fun Titles(
         )
         Text(
             modifier = Modifier
-                .padding(vertical = 8.dp, horizontal = 16.dp)
+                .padding(horizontal = 16.dp)
                 .alpha(animatedContentAlpha.value),
             text = stringResource(R.string.app_description),
             style = MaterialTheme.typography.titleMedium,
@@ -188,14 +207,16 @@ private fun ButtonsSection(
             .padding(16.dp),
     ) {
         Button(modifier = Modifier
-
             .padding(
                 top = 8.dp, bottom = 16.dp, start = 16.dp, end = 16.dp
             )
             .fillMaxWidth()
             .alpha(animatedContentAlpha.value), onClick = {
             // handle click
-        }) {
+        },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = colorResource(R.color.main_accent)
+            )) {
             Text(text = stringResource(R.string.get_started))
         }
     }
